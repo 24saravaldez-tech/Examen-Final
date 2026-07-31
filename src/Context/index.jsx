@@ -14,6 +14,9 @@ function MascotasProvider({ children }) {
     const [tamano, setTamano] = useState('')
     const [tipo, setTipo] = useState('')
     const [estadoD, setEstadoD] = useState('Disponible')
+    const [id, setId] = useState(0)
+
+
 
 
     const onChange = (event) => {
@@ -58,15 +61,10 @@ function MascotasProvider({ children }) {
     }
 
     const onEditar = (id, nombre, edad, tamano, tipo, estadoD) => {
-        {setCambioPantalla('Edicion')}
-        <EditarMascota
-            id={id}
-            nombre={nombre}
-            edad={edad}
-            tamano={tamano}
-            tipo={tipo}
-            estadoD={estadoD}
-        />
+        setEstadoD(id)
+        setNombre(nombre)
+        setEdad(edad)
+        setTamano(tamano)
 
     }
 
@@ -113,7 +111,7 @@ function MascotasProvider({ children }) {
             nombre,
             edad,
             tipo,
-            tamano,
+            tamano
         }}>
             {children}
         </MascotasContext.Provider>
