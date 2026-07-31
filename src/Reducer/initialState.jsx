@@ -5,7 +5,7 @@ export const initialState = {
             nomre: 'ji',
             tipo: 'gato',
             tamano: 'grande',
-            estado: 'Disponible',
+            estadoD: 'Disponible',
             edad: 5
         }
     ]

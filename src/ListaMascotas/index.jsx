@@ -22,7 +22,7 @@ function ListaMascotas({ mascotas }) {
                     tipo={animal.tipo}
                     tamano={animal.tamano}
                     edad={animal.edad}
-                    estado={animal.estado}
+                    estadoD={animal.estadoD}
                 />
             ))}
         </>

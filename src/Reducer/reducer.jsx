@@ -16,17 +16,55 @@ const reducer = (state, accion) => {
                 mascotas: state.mascotas.filter(animal => animal.id != accion.infoExtra.id)
             }
 
-        // case 'EDITAR_MASCOTA':
-        //     return {
-        //         ...state,
-        //         mascotas: [...state.mascotas, accion.infoExtra]
-        //     }
-        // case 'EDITAR_ESTADO':
-        //     let buscada = state.mascotas.filter(animal => animal.id == accion.infoExtra.id)
-        //     buscada.estado = (buscada.estado == 'Disponible' ? 'Adoptar' : 'Disponible')
-        //     return {
-        //         mascotas: [...state.mascotas, buscada]
-        //     }
+        case 'MARCAR_ADOPTADA':
+            //no se muta el estado directamente, sino que se hace mediante una copia. entonces:
+
+            let buscarAdoptar = [...state.mascotas]
+            //guardo en una variable el id que me pasan en infoEstra.
+            let idDeAdopcion = accion.infoExtra.id
+
+
+            //mapeo todos los objetos dentro buscando una coicidencia de id con el de la mascota a adoptar.
+            //al emcontrarlo, cambio su estado.
+
+            buscarAdoptar = buscarAdoptar.map((animal) => (
+                animal.id == idDeAdopcion ? { ...animal, estadoD: 'Adoptada' } : animal
+            ))
+
+            //retorno el nuevo resultado.
+
+            return {
+                ...state,
+                mascotas: [...buscarAdoptar]
+            }
+
+        case 'MARCAR_DISPONIBLE':
+
+            let buscarDisponible = [...state.mascotas]
+            let infoDdeBuscada = accion.infoExtra.id
+
+            buscarDisponible = buscarDisponible.map((animal) => (
+                animal.id == infoDdeBuscada ? { ...animal, estadoD: 'Disponible' } : animal
+            ))
+
+            return {
+                ...state,
+                mascotas: [...buscarDisponible]
+            }
+
+        case 'EDITAR_MASCOTA':
+
+            let buscarEditar = [...state.mascotas]
+            let idEditar = accion.infoExtra
+
+            buscarEditar = buscarEditar.map((animal) => (
+                animal.id == idEditar.id ? { idEditar } : animal
+            ))
+
+            return {
+                ...state,
+                mascotas: [...buscarEditar]
+            }
     }
 
 }

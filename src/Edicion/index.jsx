@@ -1,12 +1,9 @@
-import React, { useContext, useReducer, useState } from "react";
+
+import { useContext } from "react"
 import './styles.css'
-import { MascotasContext } from "../Context";
-import { tipoDeAccion } from "../Reducer/actionTypes";
-import { reducer } from "../Reducer/reducer";
-import { initialState } from "../Reducer/initialState";
+import { MascotasContext } from "../Context"
 
-const Formulario = () => {
-
+function EditarMascota({id, nombre, edad, tamano, tipo, estadoD }) {
     const { onCerrar,
         onChange,
         onEdad,
@@ -14,18 +11,15 @@ const Formulario = () => {
         onTipo,
         onEstado,
         onGuardar,
-        nombre,
-        edad,
-        tipo,
-        tamano,
-        estadoD } = useContext(MascotasContext)
+        onEditar,
+    } = useContext(MascotasContext)
 
     return (
         <div className="contenedorFormulario">
             <button type="button" className="btn btn-danger" onClick={onCerrar}>X</button>
 
             <form name='formIngresarMascota' className="container d-flex flex-column formulario">
-                <p>Ingrese el nombre de la mascota: </p>
+                <p>Edite el nombre de la mascota: </p>
                 <input type="text"
                     name='nombreMascota'
                     placeholder='Ej.: Oliver'
@@ -34,7 +28,7 @@ const Formulario = () => {
                     onChange={onChange} />
                 <br />
 
-                <p>Ingrese el tipo de mascota: </p>
+                <p>Edite el tipo de mascota: </p>
                 <select onClick={onTipo}>
                     <option defaultValue={'Seleccionar'}>Seleccionar</option>
                     <option>Perro</option>
@@ -43,16 +37,16 @@ const Formulario = () => {
                 </select>
                 <br />
 
-                <p>Ingrese la edad de la mascota: </p>
+                <p>Edite la edad de la mascota: </p>
                 <input
                     type="number"
                     name='edad'
                     value={edad}
-                    placeholder='ingrese la edad'
+                    placeholder='Edite la edad'
                     onChange={onEdad} />
                 <br />
 
-                <p>Ingrese el tamaño de la mascota: </p>
+                <p>Edite el tamaño de la mascota: </p>
                 <select onClick={onTamano}>
                     <option defaultValue={'Seleccionar'}>Seleccionar</option>
                     <option>Pequeno</option>
@@ -63,8 +57,8 @@ const Formulario = () => {
 
                 <button type='button'
                     name='agregar-mascota'
-                    onClick={() => onGuardar(nombre, edad, tamano, tipo, estadoD)}
-                    style={{ width: 150 }}>Agregar Mascota</button>
+                    onClick={() => onGuardar(id, nombre, edad, tamano, tipo, estadoD)}
+                    style={{ width: 150 }}>Guardar Cambios</button>
                 <button type="button" className="btn btn-danger" onClick={onCerrar}>Cancelar</button>
 
             </form>
@@ -72,4 +66,5 @@ const Formulario = () => {
     )
 }
 
-export { Formulario }
+
+export { EditarMascota }

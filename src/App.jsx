@@ -6,6 +6,7 @@ import 'bootstrap'
 import { useContext, useReducer } from 'react'
 import { reducer } from './Reducer/reducer'
 import { MascotasContext } from './Context'
+import { EditarMascota } from './Edicion'
 
 function App() {
   const { estado } = useContext(MascotasContext)
@@ -25,7 +26,13 @@ function App() {
 
       </>
     )
-  } 
+  } else if(pantalla == 'Edicion'){
+    return (
+      <>
+        <EditarMascota />
+      </>
+    )
+  }
 
 }
 
