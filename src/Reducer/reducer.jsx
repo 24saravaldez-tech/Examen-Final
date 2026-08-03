@@ -13,6 +13,7 @@ const reducer = (state, accion) => {
 
         case 'ELIMINAR_MASCOTA':
             return {
+                ...state,
                 mascotas: state.mascotas.filter(animal => animal.id != accion.infoExtra.id)
             }
 
@@ -58,7 +59,15 @@ const reducer = (state, accion) => {
             let idEditar = accion.infoExtra
 
             buscarEditar = buscarEditar.map((animal) => (
-                animal.id == idEditar.id ? { idEditar } : animal
+                animal.id == idEditar.id ? 
+                {
+                    id: idEditar.id,
+                    nombre: idEditar.nombre,
+                    tipo: idEditar.tipo,
+                    tamano: idEditar.tamano,
+                    estadoD: idEditar.estadoD,
+                    edad: idEditar.edad
+                } : animal
             ))
 
             return {

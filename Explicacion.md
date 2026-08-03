@@ -31,3 +31,18 @@ El componente ListaMascotas se encarga de mapear todos los objetos dentro de mas
 ## Reducer
 
 El reducer es el encargado de manejar las acciones a realizar dentro de la aplicacion. Dependiento del type asignado en el dispatch, se ejecuta una funcion especificada dentro del programa, como ELIMINAR o AGREGAR a las que se le llama por medio del dispatch dependiendo de cada situacion.
+
+
+## Filtros
+
+El componente se encarga de tomar los valores seleccionados o ingresados por el usuario y, en base a ellos, mapea los resultados en pantalla. Si no hay filtros aplicados, los toma como tipo 'Todos' y deja que todas las mascotas se muestren.
+
+
+## Estadistica
+
+Es el componete que se encarga de recibir en forma de props (por parte de la lista de mascotas) la cantidad de mascotas registradas, adoptadas o disponibles. Luego, es llamada dentro de ListaMascotas, que a su vez es llamada en pantalla.
+
+## Edicion
+
+Este componente toma los valores preescritos dentro de la card de la mascota, los muestra en sus datos y permite que el usuario los edite.
+

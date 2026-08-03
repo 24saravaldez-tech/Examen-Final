@@ -1,17 +1,57 @@
+* {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
 .contenedorFormulario {
     width: 100vw;
     height: 100vh;
-    align-items: center;
+    display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .formulario {
-    background-color: bisque;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(53, 51, 48);
+}
+
+.encabezado {
+    display: flex;
+    justify-content: flex-start;
+    margin: 1rem 2rem
+}
+
+.contenido {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 1rem;
+}
+
+.contenido p {
+    color: white;
 }
 
 .inputNombre {
-    width: 20rem;
-    height: 3rem;
+    width: 350px;
+    height: 2rem;
+}
+
+.buttons {
+    display: flex;
+    width: 600px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.boton {
+    width: 150px;
+}
+
+.ultimoDiv {
+    margin-bottom: 4rem;
 }

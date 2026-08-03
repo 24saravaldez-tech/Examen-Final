@@ -10,13 +10,15 @@ function MascotasProvider({ children }) {
     const [estado, dispatch] = useReducer(reducer, initialState)
     const [pantalla, setCambioPantalla] = useState('General')
     const [nombre, setNombre] = useState('')
-    const [edad, setEdad] = useState(0)
+    const [edad, setEdad] = useState('')
     const [tamano, setTamano] = useState('')
     const [tipo, setTipo] = useState('')
     const [estadoD, setEstadoD] = useState('Disponible')
     const [id, setId] = useState(0)
-
-
+    const [tipoFiltrar, setTipoFltrar] = useState('')
+    const [estadoFiltrar, setEstadoFltrar] = useState('')
+    const [nombreFiltrar, setNombreFltrar] = useState('')
+    const [tamanoFiltrar, setTamanoFltrar] = useState('')
 
 
     const onChange = (event) => {
@@ -25,7 +27,6 @@ function MascotasProvider({ children }) {
     }
     const onEdad = (event) => {
         setEdad(event.target.value)
-
     }
 
     const onTipo = (event) => {
@@ -36,8 +37,8 @@ function MascotasProvider({ children }) {
         setTamano(event.target.value)
     }
 
-    const onEliminarMascota = () => {
-        dispatch({ type: tipoDeAccion.ELIMINAR_MASCOTA, infoExtra: { id: event.target.id } })
+    const onEliminarMascota = (id) => {
+        dispatch({ type: tipoDeAccion.ELIMINAR_MASCOTA, infoExtra: { id: id } })
     }
 
     const onCerrar = () => {
@@ -61,32 +62,121 @@ function MascotasProvider({ children }) {
     }
 
     const onEditar = (id, nombre, edad, tamano, tipo, estadoD) => {
-        setEstadoD(id)
+        setId(id)
+        setEstadoD(estadoD)
         setNombre(nombre)
-        setEdad(edad)
+        setEdad(parseInt(edad))
         setTamano(tamano)
+        setTipo(tipo)
+        setCambioPantalla('Edicion')
 
     }
 
     const onGuardar = (id, nombre, edad, tamano, tipo, estadoD) => {
-        dispatch({
-            type: tipoDeAccion.AGREGAR_MASCOTA,
-            infoExtra: {
-                id: id || Date.now() * Math.floor(Math.random() * 1000),
-                nombre: nombre,
-                edad: edad,
-                tamano: tamano,
-                tipo: tipo,
-                estadoD: estadoD
+        try {
+            if (nombre.trim() == '') {
+                throw new Error('Escoja un nombre valido (con letras y no vacio)')
             }
-        })
-        console.log(estado.mascotas)
-        setEdad(0)
-        setNombre('')
-        setTamano('')
-        setTipo('')
-        setEstadoD('Disponible')
-        setCambioPantalla('General')
+
+            if (edad.toString().trim() == '' || parseInt(edad) < 0) {
+                throw new Error('Escoja una edad valida (no vacia, con numeros y mayor o igual a 0)')
+            }
+
+
+            if (tamano != 'Pequeno' && tamano != 'Mediano' && tamano != 'Grande') {
+                throw new Error('Escoja un tamano valido (con letras y no vacio)')
+            }
+
+
+            if (tipo != 'Gato' && tipo != 'Perro' && tipo != 'Otro') {
+                throw new Error('Escoja un tipo valido (no vacio, entre gato, perro u otro)')
+            }
+
+            dispatch({
+                type: tipoDeAccion.AGREGAR_MASCOTA,
+                infoExtra: {
+                    id: Date.now() * Math.floor(Math.random() * 1000),
+                    nombre: nombre,
+                    edad: edad,
+                    tamano: tamano,
+                    tipo: tipo,
+                    estadoD: estadoD
+                }
+            })
+            console.log(estado.mascotas)
+            setEdad('')
+            setNombre('')
+            setTamano('')
+            setTipo('')
+            setEstadoD('Disponible')
+            setCambioPantalla('General')
+        } catch (error) {
+            alert(error.message)
+            return
+        }
+
+    }
+
+
+    const onGuardarCambios = (id, nombre, edad, tamano, tipo, estadoD) => {
+        try {
+            if (nombre.trim() == '') {
+                throw new Error('Escoja un nombre valido (con letras y no vacio)')
+            }
+
+            if (edad.toString().trim() == '' || parseInt(edad) < 0) {
+                throw new Error('Escoja una edad valida (no vacia, con numeros y mayor o igual a 0)')
+            }
+
+
+            if (tamano != 'Pequeno' && tamano != 'Mediano' && tamano != 'Grande') {
+                throw new Error('Escoja un tamano valido (con letras y no vacio)')
+            }
+
+
+            if (tipo != 'Gato' && tipo != 'Perro' && tipo != 'Otro') {
+                throw new Error('Escoja un tipo valido (no vacio, entre gato, perro u otro)')
+            }
+
+            dispatch({
+                type: tipoDeAccion.EDITAR_MASCOTA,
+                infoExtra: {
+                    id: id ,
+                    nombre: nombre,
+                    edad: edad,
+                    tamano: tamano,
+                    tipo: tipo,
+                    estadoD: estadoD
+                }
+            })
+            console.log(estado.mascotas)
+            setEdad('')
+            setNombre('')
+            setTamano('')
+            setTipo('')
+            setEstadoD('Disponible')
+            setCambioPantalla('General')
+        } catch (error) {
+            alert(error.message)
+            return
+        }
+
+    }
+
+    const onFiltrarNombre = (event) => {
+        setNombreFltrar(event.target.value)
+    }
+
+    const onFiltrarEstado = (event) => {
+        setEstadoFltrar(event.target.value)
+    }
+
+    const onFiltrarTamano = (event) => {
+        setTamanoFltrar(event.target.value)
+    }
+
+    const onFiltrarTipo = (event) => {
+        setTipoFltrar(event.target.value)
     }
 
 
@@ -104,14 +194,24 @@ function MascotasProvider({ children }) {
             onEliminarMascota,
             onFormulario,
             onGuardar,
+            onGuardarCambios,
             onTamano,
             onTipo,
             pantalla,
             estadoD,
+            id,
             nombre,
             edad,
             tipo,
-            tamano
+            tamano,
+            tipoFiltrar,
+            nombreFiltrar,
+            estadoFiltrar,
+            tamanoFiltrar,
+            onFiltrarEstado,
+            onFiltrarNombre,
+            onFiltrarTamano,
+            onFiltrarTipo
         }}>
             {children}
         </MascotasContext.Provider>
